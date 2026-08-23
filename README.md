@@ -26,7 +26,7 @@ Using a default low-coverage threshold of 7 days and a high-coverage threshold o
 - **157 store–product combinations** had no inventory record and were kept separate from confirmed zero stock.
 - **23 missing-inventory combinations had recent sales**. All related to **Jenga**, generated 371 recent units, and represented approximately **$2,597 in estimated gross profit**.
 
-The replenishment opportunity (~$198K) is roughly five times the size of the excess-stock exposure (~$40K) — stockouts are the bigger lever here, though both are worth acting on.
+The replenishment opportunity ($198K) is roughly five times the size of the excess-stock exposure ($40K) — stockouts are the bigger lever here, though both are worth acting on.
 
 These results are screening indicators, not automatic purchasing instructions. Final decisions require information that is unavailable in the dataset, such as supplier lead times, safety-stock targets, open purchase orders, and minimum order quantities.
 
