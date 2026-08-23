@@ -34,15 +34,14 @@ These results are screening indicators, not automatic purchasing instructions. F
 
 The Tableau dashboard contains four decision-focused sections:
 
-- **Coverage Overview** — shows the number of store–product combinations in each inventory-risk status.
-- **Replenishment Priorities by Estimated Gross Profit** — ranks confirmed zero-stock and low-coverage combinations by their estimated recent gross-profit contribution.
+- **Coverage Overview** — shows the number of store–product combinations in each inventory-risk status, ordered by risk severity (confirmed zero stock through adequate coverage) rather than alphabetically.
+- **Replenishment Candidates** — ranks confirmed zero-stock and low-coverage combinations by their estimated recent gross-profit contribution.
 - **Excess-Stock Priorities by Inventory Value** — highlights high-coverage and no-demand combinations with capital tied up in inventory.
 - **Active Missing-Inventory Records** — reports recent demand for combinations whose inventory status is unknown.
 
 Four KPI tiles summarise replenishment opportunity, excess-stock value, missing-inventory records, and estimated gross profit at a glance.
 
 Users can select a product and adjust the low- and high-coverage thresholds to explore different inventory-risk scenarios.
-
 
 ## Methodology
 
@@ -123,11 +122,6 @@ The most important data-quality issue is the distinction between **missing inven
 
 ```text
 retail-profitability-analysis/
-├── data/
-│   ├── raw/                                   # Original source files
-│   ├── processed/                             # Cleaned files exported from the audit notebook
-│   └── tableau/
-│       └── inventory_risk_analysis.csv        # Exported vw_inventory_risk_analysis view (Tableau data source)
 ├── notebooks/
 │   └── 01_data_audit.ipynb                    # Data inspection, cleaning, and validation
 ├── sql/
@@ -137,20 +131,26 @@ retail-profitability-analysis/
 │   └── 04_executive_kpis.sql
 ├── screenshots/
 │   └── inventory_risk_dashboard.png           # Dashboard preview image
-├── retail_inventory_risk_dashboard.twb
+├── tableau/
+│   └── inventory_risk_analysis.csv            # Exported vw_inventory_risk_analysis view (Tableau data source)
+├── retail_inventory_risk_dashboard.twbx        # Packaged workbook (includes the extract)
+├── data_dictionary.csv                         # Field reference for the source dataset
+├── LICENSE
 └── README.md
 ```
+
+The original source CSVs (`sales.csv`, `inventory.csv`, `products.csv`, `stores.csv`, `calendar.csv`) and the notebook's cleaned/processed output are not stored in this repository — they're a public dataset (one file alone is over 20 MB) and are fully reproducible by running the notebook. Download the source files directly from Maven Analytics using the link below; `data_dictionary.csv` is kept in the repo for quick reference.
 
 ## How to Reproduce the Project
 
 1. Download the [Mexico Toy Sales dataset from Maven Analytics](https://mavenanalytics.io/data-playground/mexico-toy-sales).
-2. Place the source CSV files in `data/raw/`.
-3. Open and run `notebooks/01_data_audit.ipynb` to reproduce the audit and cleaned CSV files.
+2. Place the source CSV files in a local `data/raw/` folder for your own working copy (this folder is not part of the repository — see note above).
+3. Open and run `notebooks/01_data_audit.ipynb` to reproduce the audit and export cleaned CSV files locally.
 4. Create the PostgreSQL tables using the SQL scripts in `sql/`.
-5. Import the cleaned CSV files from `data/processed/` into PostgreSQL.
+5. Import the notebook's cleaned CSV output into PostgreSQL.
 6. Run the analytical SQL scripts to create the inventory-risk view.
-7. Export the view as `inventory_risk_analysis.csv` and use it as the Tableau data source.
-8. Open `retail_inventory_risk_dashboard.twb` in Tableau Public.
+7. Export the view as `tableau/inventory_risk_analysis.csv` and use it as the Tableau data source.
+8. Open `retail_inventory_risk_dashboard.twbx` in Tableau Public or Tableau Desktop.
 
 ## Recommendations
 
@@ -171,3 +171,4 @@ retail-profitability-analysis/
 ## Data Source
 
 Mexico Toy Sales dataset provided by [Maven Analytics](https://mavenanalytics.io/data-playground/mexico-toy-sales).
+
